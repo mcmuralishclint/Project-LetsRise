@@ -1,0 +1,432 @@
+{%extends 'dashboard/base.html'%}
+{%load static%}
+{% load mathfilters %}
+{%block title%}Home{%endblock%}
+{%block content%}
+
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+    
+  {%include 'dashboard/header.html'%}
+  
+
+    <div class="site-blocks-cover overlay" style="background-image: url({%static 'images/hero_2.jpg'%});" data-aos="fade" data-stellar-background-ratio="0.5">
+      <div class="container">
+        <div class="row align-items-center justify-content-center text-center">
+
+          <div class="col-md-12">
+            
+            
+            <div class="row justify-content-center mb-4">
+              <div class="col-md-8 text-center">
+                <h1 class="" data-aos="fade-up">Welcome To LetsRise</h1>
+                <p data-aos="fade-up" data-aos-delay="100">We help you find anything in China. </p>
+              </div>
+            </div>
+
+            <div class="form-search-wrap mb-3" data-aos="fade-up" data-aos-delay="200">
+
+              <form method="GET" id="searchform" action="{% url 'dashboard:search_result' %}" target="_blank">
+                <div class="row align-items-center">
+                  <div class="col-lg-12 mb-4 mb-xl-0 col-xl-4">
+                    <input name='q' type="text" class="form-control rounded" placeholder="What are you looking for?">
+                  </div>
+                  <div class="col-lg-12 mb-4 mb-xl-0 col-xl-3">
+                    <div class="wrap-icon">
+
+                      <span class="icon icon-room"></span>
+                      <input type="text" class="form-control rounded" placeholder="Which City?">
+                      <!-- <select name="q_city" class="form-control rounded" id="searchform">
+                        <option value="" name='q_city'>All Cities</option>
+                        {%for city in cities%}
+                            <option value="">{{city}}</option>
+                        {%endfor%}
+                      </select> -->
+                    </div>
+                  </div>
+                  <div class="col-lg-12 mb-4 mb-xl-0 col-xl-3">
+                    <div class="select-wrap">
+                      <span class="icon"><span class="icon-keyboard_arrow_down"></span></span>
+                      <select class="form-control rounded" name="" id="">
+                        <option value="">All Categories</option>
+                        <option value="">Marketing</option>
+                        <option value="">Student Consultancy</option>
+                        <option value="">Web Development</option>
+                        <option value="">Teach</option>
+                        <option value="">Designing</option>
+                        <option value="">Others</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 col-xl-2 ml-auto text-right">
+                    <input type="submit" class="btn btn-primary btn-block rounded" value="Search">
+                  </div>
+                  
+                </div>
+              </form>
+            </div>
+                     
+            <div class="row text-left trending-search" data-aos="fade-up"  data-aos-delay="300">
+              <div class="col-12">
+                <h2 class="d-inline-block">Trending Search:</h2>
+                <a href="/search-result?q=student" target="_blank">student</a>
+                <a href="/search-result?q=design" target="_blank">design</a>
+                <a href="/search-result?q=website" target="_blank">website</a>
+                <a href="/search-result?q=free" target="_blank">free</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>  
+
+    <div class="site-section bg-light">
+      <div class="container">
+        
+        
+        <div class="row">
+          <div class="col-12">
+            <h2 class="h5 mb-4 text-black">Featured Ads</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12  block-13">
+            <div class="owl-carousel nonloop-block-13">
+
+              {%for ad in ads%}
+              <div class="d-block d-md-flex listing vertical">
+                <a href="{{ad.get_absolute_url}}" class="img d-block" style="background-image: url({{ ad.image.url }})"></a>
+                <div class="lh-content">
+                  <span class="category">{{ad.category}}</span>
+                  <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                  <h3><a href="listings-single.html">{{ad.title}}</a></h3>
+                  <address><strong style="font-size: 1.2em;">{{ad.city}}</strong> {{ad.address}}</address>
+                  <p class="mb-0">  
+                    {%if ad.comments == 0 %}
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                    {%elif ad.total_rating|intdiv:ad.comments == 1 %}
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                    {%elif ad.total_rating|intdiv:ad.comments == 2 %}
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                    {%elif ad.total_rating|intdiv:ad.comments == 3 %}
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                    {%elif ad.total_rating|intdiv:ad.comments == 4 %}
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-secondary"></span>
+                    {%elif ad.total_rating|intdiv:ad.comments == 5 %}
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                    {%endif%}
+                    <span class="review">({{ad.comments}} Reviews)</span>
+                  </p>
+                  
+                </div>
+              </div>
+              {%endfor%}
+
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    
+    <div class="site-section" data-aos="fade">
+      <div class="container">
+        <div class="row justify-content-center mb-5">
+          <div class="col-md-7 text-center border-primary">
+            <h2 class="font-weight-light text-primary">Categories</h2>
+            <p class="color-black-opacity-5">View our services by the available categories</p>
+          </div>
+        </div>
+        <form method="GET">
+        <div class="overlap-category mb-5">
+          <div class="row align-items-stretch no-gutters">
+            <div class="col-sm-6 col-md-4 mb-4 mb-lg-0 col-lg-2">
+              <a  class="popular-category h-100" name="qcategory" href="/search-result?q=marketing" target="_blank">
+                <!-- <span class="icon"><span class="flaticon-car"></span></span> -->
+                <i class="icon fa fa-chrome fa-4x"></i>
+                <span class="caption mb-2 d-block">Marketing</span>
+                <span class="number">{{marketing}}</span>
+              </a>
+            </div>
+
+            <div class="col-sm-6 col-md-4 mb-4 mb-lg-0 col-lg-2">
+              <a  class="popular-category h-100" name="qcategory" href="/search-result?q=Students" target="_blank">
+                <!-- <span class="icon"><span class="flaticon-closet"></span></span> -->
+                <i class="icon fa fa-university fa-4x"></i>
+                <span class="caption mb-2 d-block">Students Consultancy</span>
+                <span class="number">{{sc}}</span>
+              </a>
+            </div>
+
+            <div class="col-sm-6 col-md-4 mb-4 mb-lg-0 col-lg-2">
+              <a  class="popular-category h-100" name="qcategory" href="/search-result?q=Web Development" target="_blank">
+                <!-- <span class="icon"><span class="flaticon-home"></span></span> -->
+                <i class="icon fa fa-database fa-4x"></i>
+                <span class="caption mb-2 d-block">Web Development</span>
+                <span class="number">{{wd}}</span>
+              </a>
+            </div>
+            <div class="col-sm-6 col-md-4 mb-4 mb-lg-0 col-lg-2">
+              <a  class="popular-category h-100" name="qcategory" href="/search-result?q=Teach" target="_blank">
+                <!-- <span class="icon"><span class="flaticon-open-book"></span></span> -->
+                <i class="icon fa fa-book fa-4x"></i>
+                <span class="caption mb-2 d-block">Teach</span>
+                <span class="number">{{teach}}</span>
+              </a>
+            </div>
+            <div class="col-sm-6 col-md-4 mb-4 mb-lg-0 col-lg-2">
+              <a  class="popular-category h-100" name="qcategory" href="/search-result?q=Designing" target="_blank">
+                <!-- <span class="icon"><span class="flaticon-tv"></span></span> -->
+                <i class="icon fa fa-dashboard fa-4x"></i>
+                <span class="caption mb-2 d-block">Designing</span>
+                <span class="number">{{design}}</span>
+              </a>
+            </div>
+            
+            <div class="col-sm-6 col-md-4 mb-4 mb-lg-0 col-lg-2">
+              <a  class="popular-category h-100" name="qcategory" href="/search-result?q=Other" target="_blank">
+                <!-- <span class="icon"><span class="flaticon-pizza"></span></span> -->
+                <i class="icon fa fa-bullseye fa-4x"></i>
+                <span class="caption mb-2 d-block">Other</span>
+                <span class="number">{{other}}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        </form>
+        
+      </div>
+    </div>
+
+<hr>
+  <!--   <div class="site-section bg-light">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md-7 text-left border-primary">
+            <h2 class="font-weight-light text-primary">Trending Today</h2>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-lg-6">
+
+            <div class="d-block d-md-flex listing">
+              <a href="listings-single.html" class="img d-block" style="background-image: url({%static 'images/img_2.jpg'%})"></a>
+              <div class="lh-content">
+                <span class="category">Real Estate</span>
+                <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                <h3><a href="listings-single.html">Own New House</a></h3>
+                <address>Don St, Brooklyn, New York</address>
+                <p class="mb-0">
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-secondary"></span>
+                  <span class="review">(3 Reviews)</span>
+                </p>
+              </div>
+            </div>
+            <div class="d-block d-md-flex listing">
+                <a href="listings-single.html" class="img d-block" style="background-image: url({%static 'images/img_3.jpg'%})"></a>
+                <div class="lh-content">
+                  <span class="category">Furniture</span>
+                  <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                  <h3><a href="listings-single.html">Wooden Chair &amp; Table</a></h3>
+                  <address>Don St, Brooklyn, New York</address>
+                  <p class="mb-0">
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-secondary"></span>
+                    <span class="review">(3 Reviews)</span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="d-block d-md-flex listing">
+                <a href="listings-single.html" class="img d-block" style="background-image: url({%static 'images/img_4.jpg'%})"></a>
+                <div class="lh-content">
+                  <span class="category">Electronics</span>
+                  <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                  <h3><a href="listings-single.html">iPhone X gray</a></h3>
+                  <address>Don St, Brooklyn, New York</address>
+                  <p class="mb-0">
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-secondary"></span>
+                    <span class="review">(3 Reviews)</span>
+                  </p>
+                </div>
+              </div>
+
+             
+
+          </div>
+          <div class="col-lg-6">
+
+            <div class="d-block d-md-flex listing">
+              <a href="listings-single.html" class="img d-block" style="background-image: url({%static 'images/img_1.jpg'%})"></a>
+              <div class="lh-content">
+                <span class="category">Cars &amp; Vehicles</span>
+                <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                <h3><a href="listings-single.html">New Black Car</a></h3>
+                <address>Don St, Brooklyn, New York</address>
+                <p class="mb-0">
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-secondary"></span>
+                  <span class="review">(3 Reviews)</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="d-block d-md-flex listing">
+              <a href="listings-single.html" class="img d-block" style="background-image: url({%static 'images/img_2.jpg'%})"></a>
+              <div class="lh-content">
+                <span class="category">Real Estate</span>
+                <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                <h3><a href="listings-single.html">Own New House</a></h3>
+                <address>Don St, Brooklyn, New York</address>
+                <p class="mb-0">
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-warning"></span>
+                  <span class="icon-star text-secondary"></span>
+                  <span class="review">(3 Reviews)</span>
+                </p>
+              </div>
+            </div>
+            <div class="d-block d-md-flex listing">
+                <a href="listings-single.html" class="img d-block" style="background-image: url({%static 'images/img_3.jpg'%})"></a>
+                <div class="lh-content">
+                  <span class="category">Furniture</span>
+                  <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                  <h3><a href="listings-single.html">Wooden Chair &amp; Table</a></h3>
+                  <address>Don St, Brooklyn, New York</address>
+                  <p class="mb-0">
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-warning"></span>
+                    <span class="icon-star text-secondary"></span>
+                    <span class="review">(3 Reviews)</span>
+                  </p>
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div> -->
+    
+    <div class="site-section bg-white">
+      <div class="container">
+
+        <div class="row justify-content-center mb-5">
+          <div class="col-md-7 text-center border-primary">
+            <h2 class="font-weight-light text-primary">Testimonials</h2>
+          </div>
+        </div>
+
+        <div class="slide-one-item home-slider owl-carousel">
+          <div>
+            <div class="testimonial">
+              <figure class="mb-4">
+                <img src="{%static 'images/person_3.jpg'%}" alt="Image" class="img-fluid mb-3">
+                <p>Muralish Clinton</p>
+              </figure>
+              <blockquote>
+                <p>&ldquo;Been a great pleasure to use this website. The country really needs more startups based in English to help the foreigners in China.&rdquo;</p>
+              </blockquote>
+            </div>
+          </div>
+          <div>
+            <div class="testimonial">
+              <figure class="mb-4">
+                <img src="{%static 'images/person_2.jpg'%}" alt="Image" class="img-fluid mb-3">
+                <p>Christine Aguilar</p>
+              </figure>
+              <blockquote>
+                <p>&ldquo;Helped many college students in gettings work done quicker. Great work!&rdquo;</p>
+              </blockquote>
+            </div>
+          </div>
+
+          
+
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="site-section bg-light">
+      <div class="container">
+        <div class="row justify-content-center mb-5">
+          <div class="col-md-7 text-center border-primary">
+            <h2 class="font-weight-light text-primary">Our Blog</h2>
+            <p class="color-black-opacity-5">See Our Daily News &amp; Updates</p>
+          </div>
+        </div>
+        <div class="row mb-3 align-items-stretch">
+          {%for blog in blogs%}
+            <div class="col-md-6 col-lg-4 mb-4 mb-lg-4">
+              <div class="h-entry">
+               <a href="{%url 'blog:blogdetail' blog.id%}"><img src="{{blog.image.url}}" alt="Image" class="img-fluid rounded"></a>
+                <h2 class="font-size-regular"><a href="{%url 'blog:blogdetail' blog.id%}" class="text-black">{{blog.title}}</a></h2>
+                <div class="meta mb-3">by {{blog.user}}<span class="mx-1">&bullet;</span>{{blog.created_at|timesince}} ago<span class="mx-1">&bullet;</span> <a href="#">{{blog.category}}</a></div>
+                <p>{{blog.description}}</p>
+              </div> 
+            </div>
+          {%endfor%}
+          <div class="col-12 text-center mt-4">
+            <a href="{%url 'blog:bloghome'%}" class="btn btn-primary rounded py-2 px-4 text-white">View All Posts</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {%include 'dashboard/footer.html'%}
+  </div>
+
+{%endblock%}
