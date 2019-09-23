@@ -32,15 +32,15 @@ I analyzed Yelp's User Interface and designed my database according to my requir
 
 ## Project design
 - Create a virtual environment
-  python -m virtualenv env
+  - python -m virtualenv env
 - Activate the virtual environment
-  . env/Scripts/activate
+  - . env/Scripts/activate
 - Create the django project
-  django-admin startproject letsrise
+  - django-admin startproject letsrise
 - Create the apps
-  cd letsrise
-  python manage.py startapp dashboard #The main app to manage ads and everything on the main page
-  python manage.py startapp blog      #App to manage the blog
-  python manage.py startapp user      #App to manage user profile, login, logout and singup
+  - cd letsrise
+  - python manage.py startapp dashboard #The main app to manage ads and everything on the main page
+  - python manage.py startapp blog      #App to manage the blog
+  - python manage.py startapp user      #App to manage user profile, login, logout and singup
 - To clone this project
-  git clone https://github.com/mcmuralishclint/Project-LetsRise.git
+  - git clone https://github.com/mcmuralishclint/Project-LetsRise.git
