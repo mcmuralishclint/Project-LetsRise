@@ -32,7 +32,9 @@ I analyzed Yelp's User Interface and designed my database according to my requir
 
 ## Project design
 - Create a virtual environment
-  - python -m virtualenv env
+      ```python
+       python -m virtualenv env
+       ```
 - Activate the virtual environment
   - . env/Scripts/activate
 - Create the django project
