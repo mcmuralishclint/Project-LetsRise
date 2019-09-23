@@ -55,3 +55,15 @@ I analyzed Yelp's User Interface and designed my database according to my requir
    git clone https://github.com/mcmuralishclint/Project-LetsRise.git
     ```
  
+ ## Dashboard Design 
+ ### Home page
+ The home page contains three search boxes. The search function can be used to search any ad by title, description, content, city and category. There is also a section for trending search which displays the top three most searched keywords.
+![Alt text](github_images/dashboard/main.png?raw=true "Title")
+There's a section for featured ads where premium ads can be displayed
+![Alt text](github_images/dashboard/featured_ads.png?raw=true "Title")
+There's a section to view ads by categories
+![Alt text](github_images/dashboard/categories.png?raw=true "Title")
+The latest blog posts are also dispayed on the home page
+![Alt text](github_images/dashboard/featured_blog.png?raw=true "Title")
+The ads page lists all the ads with a pagination included and each blog post is linked to a seperate page
+![Alt text](github_images/dashboard/Ads_home.png?raw=true "Title")
