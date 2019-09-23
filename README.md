@@ -32,15 +32,17 @@ I analyzed Yelp's User Interface and designed my database according to my requir
 
 ## Project design
 - Create a virtual environment
-      ```python
-       python -m virtualenv env
-       ```
+  ```python
+   python -m virtualenv env
+  ```
 - Activate the virtual environment
   ```python
    . env/Scripts/activate
    ```
 - Create the django project
-  - django-admin startproject letsrise
+   ```python
+   django-admin startproject letsrise
+    ```
 - Create the apps
   - cd letsrise
   - python manage.py startapp dashboard #The main app to manage ads and everything on the main page
