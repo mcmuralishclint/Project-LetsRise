@@ -85,3 +85,19 @@ A contact page
 ![Alt text](github_images/user/contact.png?raw=true "Title")
 
 These are the main features and there are so many other features in the app which are not included above such Ratings, Validation, machine learning etc.
+
+
+## Things that I learned from this project
+
+- Use of CRUD in Django
+Although I've worked with CRUD before, I learnt how to use foreign keys and update related fields. 
+- Login system
+Got fluent with the inbuilt django login system and could alter the default classes to create custom signup forms.
+- OAuth2 Login
+I've implemented Github login for now. Would love to experiment with the wechat api. Did not want to include facebook and instagram for now since they are blocked in China but implementing it won't be a problem.
+- Custom searchbars
+Using the filter method to filter data according to a set of given values. 
+- Cooperating with frontend designers
+I've used a template for the frontend from colorlib. In an actual development environment, I would be asked to work with several other technicians. Adapting to someone else's code was indeed a challenging task for me and I overcame it.
+
+
