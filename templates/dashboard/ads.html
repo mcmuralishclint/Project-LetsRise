@@ -160,33 +160,23 @@
           <div class="col-lg-3 ml-auto">
 
             <div class="mb-5">
-              <h3 class="h5 text-black mb-3">Filters</h3>
-              <form action="#" method="post">
-                <div class="form-group">
-                  <input type="text" placeholder="What are you looking for?" class="form-control">
-                </div>
-                <div class="form-group">
-                  <div class="select-wrap">
-                      <span class="icon"><span class="icon-keyboard_arrow_down"></span></span>
-                      <select class="form-control rounded" name="" id="">
-                        <option value="">All Categories</option>
-                        <option value="">Marketing</option>
-                        <option value="">Student Consultancy</option>
-                        <option value="">Web Development</option>
-                        <option value="">Teach</option>
-                        <option value="">Designing</option>
-                        <option value="">Others</option>
-                      </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                  <!-- select-wrap, .wrap-icon -->
-                  <div class="wrap-icon">
-                    <span class="icon icon-room"></span>
-                    <input type="text" placeholder="Location" class="form-control">
-                  </div>
-                </div>
-              </form>
+              <h3 class="h5 text-black mb-3">Recent Posts</h3>
+              <ul class="list-unstyled">
+                {%for ad in all_ads%}
+                <li class="mb-2"><a href="{%url 'dashboard:ad_detail' ad.id%}">{{ad.title}}</a></li>
+                {%endfor%}
+              </ul>
+            </div>
+
+           <div class="mb-5">
+              <h3 class="h5 text-black mb-3">Recent Comments</h3>
+              <ul class="list-unstyled">
+                {%for comment in all_comments%}
+
+                <li class="mb-2"><a href="#">{{comment.comment}}</a> <em>by</em> <a href="#">{{comment.user}}</a></li>
+                {%endfor%}
+              </ul>
+                
             </div>
             
             {%if user.is_authenticated%}
@@ -374,35 +364,6 @@
   </div>
 
 
-  <script type="text/javascript">
-    var elm = document.getElementById('delete-object');
-    var objectID = elm.getAttribute('data-object-id');
-    var resultDiv = document.getElementById('result');
-    elm.addEventListener('click', function() {
-      var ask = confirm('r u sure?');
-      if (ask && objectID) {
-        var r = "Page will be redirected to </object/delete/" + objectID + "/>";
-        resultDiv.textContent = r;
-      } else {
-        resultDiv.textContent = "User cancelled the dialog box...";
-      }
-      return false;
-    });
-  </script>
-  <style type="text/css">
-    .delete-link {
-  background-color: red;
-  color: white;
-  border: 1px solid white;
-  cursor: pointer;
-  padding: 3px;
-}
-#result {
-  margin: 20px;
-  padding: 10px;
-  border: 1px solid orange;
-}
-<a cla
-  </style>
+
 
   {%endblock%}

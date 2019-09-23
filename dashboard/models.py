@@ -20,7 +20,7 @@ class AdModel(models.Model):
 	title = models.CharField(max_length=50)
 	address = models.CharField(max_length=50)
 	category = models.CharField(max_length=50, choices=CATEGORY, default='Other')
-	description = models.HTMLField()	
+	description = HTMLField('Content')
 	image = models.ImageField(upload_to = 'img/ad_image',blank=False)
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	city = models.ForeignKey(CityModel,on_delete = models.CASCADE, default = "")

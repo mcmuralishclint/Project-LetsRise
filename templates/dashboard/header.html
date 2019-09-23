@@ -13,8 +13,8 @@
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="{%url 'dashboard:ads'%}">Ads</a></li>
                 <li><a href="{%url 'blog:bloghome'%}">Blog</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li class="mr-5"><a href="contact.html">Contact Us</a></li>
+                <li><a href="{%url 'about'%}">About Us</a></li>
+                <li class="mr-5"><a href="{%url 'contact'%}">Contact Us</a></li>
 
                 {%if user.is_authenticated%}
                 <li><a href="{%url 'user:logout'%}" class="cta"><span class="bg-secondary text-white rounded">LogOut</span></a></li>

@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render,redirect,get_object_or_404,render_to_response
 from dashboard.models import AdModel,CityModel,CommentModel
 from blog.models import BlogModel
 from django.core.paginator import Paginator
@@ -9,8 +9,8 @@ from datetime import datetime
 from django.contrib.auth.models import User	
 
 def index(request):
-	ads = AdModel.objects.filter(featured=1)
-	blogs = BlogModel.objects.filter(featured=1)
+	ads = AdModel.objects.filter(featured=1)[:5]
+	blogs = BlogModel.objects.filter(featured=1)[:3]
 	cities = CityModel.objects.all()
 	#category filter
 	marketing = len(AdModel.objects.filter(category="Marketing"))
@@ -35,7 +35,9 @@ def index(request):
 	return render(request,'dashboard/index.html',context)
 
 def ad_detail(request,id):
-	ad = AdModel.objects.get(id=id)
+	#ad = AdModel.objects.get(id=id)
+	ad = get_object_or_404(AdModel,id=id)
+	#all_comments = CommentModel.objects.all()
 	comments = CommentModel.objects.filter(ad = id)
 	comment_form = CommentForm(request.POST or None)
 	if request.method=="POST":
@@ -52,6 +54,7 @@ def ad_detail(request,id):
 
 
 	context = {
+	'all_comments':comments,
 	'ad':ad,
 	'comments':comments,
 	'no_of_comments':len(comments),
@@ -64,9 +67,14 @@ def ads(request):
 	ads_paginator = Paginator(ads,2)
 	page = request.GET.get('page')
 	ads = ads_paginator.get_page(page)
+
+	all_comments = CommentModel.objects.all()[:5]
+	all_ads = AdModel.objects.all()[:5]
 	#ads = ads_paginator.get_page(page)
 	context={
 	'ads':ads,
+	'all_comments':all_comments,
+	'all_ads':all_ads
 	}
 	return render(request,'dashboard/ads.html',context)
 
@@ -82,10 +90,6 @@ def search_result(request):
 			'categories':'categories',
 			'ads':'ads',
 			}
-
-
-
-
 	try:
 		ads = AdModel.objects.filter(Q(description__icontains=search_id) | Q(title__icontains=search_id))
 		context={
@@ -95,8 +99,6 @@ def search_result(request):
 			}
 	except:
 		pass
-
-
 	try:
 		categories = AdModel.objects.filter(Q(category__icontains=search_category))
 		context={
@@ -117,8 +119,8 @@ def create_ad(request):
 	form = AdForm(request.POST or None, request.FILES or None)
 	if request.method=="POST":
 		if form.is_valid():
-			print('pass')
 			form.instance.user=request.user
+			form.instance.featured=0
 			form.save()
 			return redirect('/ads/')
 
@@ -136,8 +138,9 @@ def edit_ad(request,id):
 	if request.method=="POST":
 		if form.is_valid():
 			form.instance.user=request.user
+			form.instance.featured=0
 			form.save()
-			return redirect('/ads/')
+			return redirect('/ad-detail/' + id)
 
 
 	context={
@@ -154,3 +157,13 @@ def delete_ad(request,id):
 	return redirect('/ads/')
 
 
+def contact(request):
+	return render(request,'contact.html',{})
+
+def about(request):
+	return render(request,'about.html',{})
+
+def page_not_found(request,exception):
+	response = render_to_response('404.html',context_instance=RequestContext(request))
+	response.status_code = 404
+	return response

@@ -2,7 +2,8 @@
 {%load static%}
 {% load mathfilters %}
 {%load crispy_forms_tags%}
-{%block title%}Ads{%endblock%}
+{%block title%}Create Ad{%endblock%}
+{{ form.media }}
 {%block content%}
   
   <div class="site-wrap">
@@ -38,8 +39,9 @@
         </div>
       </div>
     </div>  
-
-    <div class="col-4 offset-4 mt-5 mb-5">
+<br>
+    <div class="container">
+      {{form.media}}
       <form method="POST" enctype="multipart/form-data">
         {%csrf_token%}
         {{form|crispy}}
@@ -60,7 +62,7 @@
           <div>
             <div class="testimonial">
               <figure class="mb-4">
-                <img src="{%static 'images/person_3.jpg'%}" alt="Image" class="img-fluid mb-3">
+                <img src="{%static 'images/default.jpg'%}" alt="Image" class="img-fluid mb-3">
                 <p>Muralish Clinton</p>
               </figure>
               <blockquote>
@@ -71,7 +73,7 @@
           <div>
             <div class="testimonial">
               <figure class="mb-4">
-                <img src="{%static 'images/person_2.jpg'%}" alt="Image" class="img-fluid mb-3">
+                <img src="{%static 'images/default.jpg'%}" alt="Image" class="img-fluid mb-3">
                 <p>Christine Aguilar</p>
               </figure>
               <blockquote>

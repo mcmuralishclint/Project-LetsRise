@@ -11,8 +11,11 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+import django_heroku
+from decouple import config
+import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -20,12 +23,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'h0sj2t7d(xh+r38sfhkc&w12kr-dlkx32iq!&nklhnaht%6h)w'
+SECRET_KEY = config('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -38,12 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'tinymce',  #TinyMCE
     'mathfilters', #Math in templates
     'dashboard', #Dashboard APP
     'blog',      #Blog APP
     'user',      #User APP
     'crispy_forms', #Bootstrap forms
-    'tinymce',  #TinyMCE
+
+    
 
     'allauth', # allauth
     'allauth.account', # allauth
@@ -75,6 +81,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+
             ],
         },
     },
@@ -151,6 +158,8 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 
 #TinyMCE
+
+
 TINYMCE_DEFAULT_CONFIG = {
     'height': 360,
     'width': 1120,

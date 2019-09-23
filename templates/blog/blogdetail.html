@@ -1,5 +1,6 @@
 {%extends 'dashboard/base.html'%}
 {%load static%}
+{%load crispy_forms_tags%}
 {%block title%}Blog{%endblock%}
 
 {%block content%}
@@ -38,7 +39,6 @@
         </div>
       </div>
     </div>  
-
     <div class="site-section">
       <div class="container">
         <div class="row">
@@ -48,8 +48,7 @@
               <img src="{{blog.image.url}}" alt="Image" class="img-fluid">
             </figure>
 
-            {{blog.description}}
-
+            {{blog.content|safe}}
 
             <div class="pt-5">
               <form method="GET">
@@ -60,48 +59,87 @@
             {%if user.is_authenticated%}
             <hr>
              <div class="pt-5">
-              <h3 class="mb-5">6 Reviews</h3>
+              <h3 class="mb-5">{{no_of_comments}} {%if no_of_comments == 1 %} Review {%else%} Reviews {%endif%}</h3>
               <ul class="comment-list">
+                {%for comment in comments%}
                 <li class="comment">
                   <div class="vcard">
-                    <img src="{%static 'images/person_1.jpg'%}" alt="Image placeholder">
+                    <img src="{%static 'images/default.jpg'%}" alt="Image placeholder">
                   </div>
                   <div class="comment-body">
-                    <h3>Jean Doe</h3>
-                    <div class="meta">January 9, 2018 at 2:21pm</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                    <p><a href="#" class="reply rounded">Reply</a></p>
+                    <h3>{{comment.user|capfirst}}</h3> 
+                    {%if user == comment.user %}
+                    <a href="">edit</a> | 
+                    <a href="">delete</a>
+                    {%endif%}
+                    <div class="meta">{{comment.timestamp}}</div>
+                    <p>{{comment.comment}}</p>
+                    {%if comment.rating == "0" %}
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                    {%elif comment.rating == "1" %}
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                    {%elif comment.rating == "2" %}
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                    {%elif comment.rating == "3" %}
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-secondary"></span>
+                        <span class="icon-star text-secondary"></span>
+                    {%elif comment.rating == "4" %}
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-secondary"></span>
+                    {%elif comment.rating == "5" %}
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                        <span class="icon-star text-warning"></span>
+                    {%endif%}
                   </div>
                 </li>
+                {%endfor%}
               </ul>
               <!-- END comment-list -->
               
-              <div class="comment-form-wrap pt-5">
-                <h3 class="mb-5">Leave a comment</h3>
-                <form action="#" class="p-5 bg-light">
+             <div class="comment-form-wrap pt-5">
+                {%if user.is_authenticated%}
+                {% if user != blog.user %}
+                <h3 class="mb-5">Leave a Review</h3>
+                <form action="#" class="p-5 bg-light" method="POST">
+                  {%csrf_token%}
                   <div class="form-group">
-                    <label for="name">Name *</label>
-                    <input type="text" class="form-control" id="name">
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Email *</label>
-                    <input type="email" class="form-control" id="email">
-                  </div>
-                  <div class="form-group">
-                    <label for="website">Website</label>
-                    <input type="url" class="form-control" id="website">
-                  </div>
+                    {{form|crispy}}
+                   </div>
 
-                  <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
-                  </div>
+
                   <div class="form-group">
                     <input type="submit" value="Post Comment" class="btn btn-primary">
                   </div>
 
                 </form>
+                {%endif%}
+                {%endif%}
               </div>
+
+
+
+
              </div>
             {%endif%}
 
@@ -110,17 +148,30 @@
 
          <div class="col-md-3 ml-auto">
             
-         
 
             <div class="mb-5">
               <h3 class="h5 text-black mb-3">Recent Comments</h3>
               <ul class="list-unstyled">
-                <li class="mb-2"><a href="#">Joefrey</a> <em>in</em> <a href="#">Lorem ipsum dolor sit amet</a></li>
-                <li class="mb-2"><a href="#">Joefrey</a> <em>in</em> <a href="#">Quaerat rerum voluptatibus veritatis</a></li>
-                <li class="mb-2"><a href="#">Joefrey</a> <em>in</em> <a href="#">Maiores sapiente veritatis reprehenderit</a></li>
-                <li class="mb-2"><a href="#">Joefrey</a> <em>in</em> <a href="#">Natus eligendi nobis</a></li>
+                {%for comment in all_comments%}
+
+                <li class="mb-2"><a href="#">{{comment.comment}}</a> <em>by</em> <a href="#">{{comment.user}}</a></li>
+                {%endfor%}
               </ul>
+                
             </div>
+            {%if user.is_authenticated%}
+                {%if user == blog.user%}
+                    <div class="mb-5">
+                      <h3 class="h5 text-black mb-3">Blog Center</h3>
+                      <a href="{%url 'blog:edit_blog' blog.id%}" class="btn btn-primary">Edit Blog</a>
+                     
+                      <a ... onclick="return confirm('Are you sure you want to delete this?')" href="{%url 'blog:delete_blog' blog.id%}" class="btn btn-outline-primary">Delete</a>
+
+
+                    </div>
+                {%endif%}
+                {%endif%}
+
 
           </div>
 
