@@ -23,4 +23,4 @@ Analyzing the problem and through realizing that there were no other startups in
 ## Project Planning
 To start off with the project, I created a plan and decided to allocate some time and work on it. I created a Gantt chart in excel and allocated my time according to the schedule.
 
-![Alt text](images/crypto-main.png?raw=true "Title")
+![Alt text](github_images/gantt.png?raw=true "Title")
