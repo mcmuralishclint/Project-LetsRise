@@ -55,9 +55,8 @@ I analyzed Yelp's User Interface and designed my database according to my requir
    git clone https://github.com/mcmuralishclint/Project-LetsRise.git
     ```
  
- ## Dashboard Design 
- ### Home page
- The home page contains three search boxes. The search function can be used to search any ad by title, description, content, city and category. There is also a section for trending search which displays the top three most searched keywords.
+## Dashboard App 
+The home page contains three search boxes. The search function can be used to search any ad by title, description, content, city and category. There is also a section for trending search which displays the top three most searched keywords.
 ![Alt text](github_images/dashboard/main.png?raw=true "Title")
 There's a section for featured ads where premium ads can be displayed
 ![Alt text](github_images/dashboard/featured_ads.png?raw=true "Title")
@@ -65,5 +64,23 @@ There's a section to view ads by categories
 ![Alt text](github_images/dashboard/categories.png?raw=true "Title")
 The latest blog posts are also dispayed on the home page
 ![Alt text](github_images/dashboard/featured_blog.png?raw=true "Title")
-The ads page lists all the ads with a pagination included and each blog post is linked to a seperate page
+The ads page lists all the ads with a pagination included and each blog post is linked to a seperate page where users can create, delete and update their own posts.
 ![Alt text](github_images/dashboard/Ads_home.png?raw=true "Title")
+
+### Blog App
+All the blog posts are display on the blog page and each blog post has its unique page like the ad page.
+![Alt text](github_images/blog/blog_home.png?raw=true "Title")
+
+### User App
+The login page for existing users (Facebook, linkdin, Instagram and Github included[Wechat will be added soon])
+![Alt text](github_images/user/login.png?raw=true "Title")
+Signup page for new users
+![Alt text](github_images/user/signup.png?raw=true "Title")
+
+### General
+An About page
+![Alt text](github_images/user/about.png?raw=true "Title")
+A contact page
+![Alt text](github_images/user/contact.png?raw=true "Title")
+
+These are the main features and there are so many other features in the app which are not included above such Ratings, Validation, machine learning etc.
