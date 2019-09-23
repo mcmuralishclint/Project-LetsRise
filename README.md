@@ -74,6 +74,7 @@ All the blog posts are display on the blog page and each blog post has its uniqu
 ### User App
 The login page for existing users (Facebook, linkdin, Instagram and Github included[Wechat will be added soon])
 ![Alt text](github_images/user/login.png?raw=true "Title")
+
 Signup page for new users
 ![Alt text](github_images/user/signup.png?raw=true "Title")
 
