@@ -24,3 +24,8 @@ Analyzing the problem and through realizing that there were no other startups in
 To start off with the project, I created a plan and decided to allocate some time and work on it. I created a Gantt chart in excel and allocated my time according to the schedule.
 
 ![Alt text](github_images/gantt.png?raw=true "Title")
+
+## Database design
+I analyzed Yelp's User Interface and designed my database according to my requirements.
+
+![Alt text](github_images/database.png?raw=true "Title")
