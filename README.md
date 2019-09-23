@@ -44,9 +44,14 @@ I analyzed Yelp's User Interface and designed my database according to my requir
    django-admin startproject letsrise
     ```
 - Create the apps
-  - cd letsrise
-  - python manage.py startapp dashboard #The main app to manage ads and everything on the main page
-  - python manage.py startapp blog      #App to manage the blog
-  - python manage.py startapp user      #App to manage user profile, login, logout and singup
+  ```python
+   cd letsrise
+   python manage.py startapp dashboard #The main app to manage ads and everything on the main page
+   python manage.py startapp blog      #App to manage the blog
+   python manage.py startapp user      #App to manage user profile, login, logout and singup
+    ```
 - To clone this project
-  - git clone https://github.com/mcmuralishclint/Project-LetsRise.git
+  ```python
+   git clone https://github.com/mcmuralishclint/Project-LetsRise.git
+    ```
+ 
