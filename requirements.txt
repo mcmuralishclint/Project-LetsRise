@@ -20,7 +20,7 @@ Inflector==3.0.0
 jsmin==2.2.2
 libclang-py3==3.9.0
 oauthlib==3.1.0
-Pillow==6.1.0
+Pillow==9.0.1
 psycopg2==2.8.3
 pyenchant==2.0.0
 python-decouple==3.1
